@@ -1,0 +1,111 @@
+{
+  "eval_set_id": "evalset55dc1d",
+  "name": "evalset55dc1d",
+  "description": null,
+  "eval_cases": [
+    {
+      "eval_id": "caseffe351",
+      "conversation": [
+        {
+          "invocation_id": "e-04097676-e69c-44b7-93dd-30d69004f9ac",
+          "user_content": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "hi"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "Hi there! How can I help you today? I can provide you with the current time and weather information for a specific city.\n"
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1757131952.364
+        },
+        {
+          "invocation_id": "e-b547e674-670c-407c-a92a-5bfeab4d4a2f",
+          "user_content": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "Can you tell me the weather in new york ?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "OK. The weather in New York is sunny with a temperature of 25 degrees Celsius (77 degrees Fahrenheit).\n"
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "adk-5dbc3c7f-5658-43b5-97b5-8ea13cce6bca",
+                "args": {
+                  "city": "new york"
+                },
+                "name": "get_weather"
+              }
+            ],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1757131968.787206
+        }
+      ],
+      "session_input": {
+        "app_name": "multi_agent_tools",
+        "user_id": "user",
+        "state": {}
+      },
+      "creation_timestamp": 1757132113.948477
+    }
+  ],
+  "creation_timestamp": 1757132108.220973
+}
