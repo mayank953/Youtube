@@ -1,0 +1,13 @@
+# Full dependency list across ALL parts.
+# Install everything at once with: pip install -r requirements.txt
+
+pydantic>=2.13
+pydantic-settings>=2.14
+pydantic[email]
+
+fastapi>=0.115
+uvicorn>=0.30
+
+anthropic>=0.40
+openai>=1.55
+python-dotenv>=1.0

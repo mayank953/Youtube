@@ -1,0 +1,126 @@
+<!--
+  FINAL PROJECT — static/index.html
+  =============================================================
+  TEACHING GOAL:
+  Deliberately plain HTML + vanilla JS, zero frameworks. The point of
+  this course is Pydantic, not frontend tooling — keep this file boring
+  on purpose so it never steals screen time from the Python side.
+
+  All it does: POST the textarea content to /triage, display the
+  validated JSON that comes back. That's it.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Support Ticket Triage — Final Project</title>
+  <style>
+    body {
+      font-family: -apple-system, sans-serif;
+      max-width: 640px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #222;
+    }
+    h1 { font-size: 1.4rem; }
+    textarea {
+      width: 100%;
+      height: 100px;
+      font-size: 1rem;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #C8674C;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    pre {
+      background: #f5f5f0;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .error { color: #b00020; }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 6px;
+    }
+    .priority-high { background: #ffd7d0; color: #a03; }
+    .priority-medium { background: #fff2c9; color: #8a6100; }
+    .priority-low { background: #d9f2d9; color: #26662b; }
+  </style>
+</head>
+<body>
+  <h1>AI Support Ticket Triage</h1>
+  <p>Paste a raw, messy customer message. It gets validated (Pydantic + FastAPI),
+     sent to an AI model with a guaranteed response schema (Pydantic structured
+     outputs), validated AGAIN on the way back, and returned as clean data.</p>
+
+  <textarea id="ticketInput" placeholder="e.g. hey my order didnt come yet its been like 2 weeks!! order number maybe 4521?? im pretty annoyed ngl"></textarea>
+  <br />
+  <button id="submitBtn" onclick="submitTicket()">Triage Ticket</button>
+
+  <div id="result" style="margin-top: 20px;"></div>
+
+  <script>
+    async function submitTicket() {
+      const input = document.getElementById("ticketInput").value.trim();
+      const resultDiv = document.getElementById("result");
+      const button = document.getElementById("submitBtn");
+
+      if (!input) {
+        resultDiv.innerHTML = '<p class="error">Type a message first.</p>';
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Triaging...";
+      resultDiv.innerHTML = "<p>Calling the AI model...</p>";
+
+      try {
+        const response = await fetch("/triage", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: input }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          // FastAPI's automatic 422 validation errors, or our own 502s,
+          // land here — this is the "rejected at the door" moment.
+          resultDiv.innerHTML = `<p class="error">Rejected (HTTP ${response.status}):</p><pre>${JSON.stringify(data, null, 2)}</pre>`;
+          return;
+        }
+
+        const priorityClass = "priority-" + data.priority;
+        resultDiv.innerHTML = `
+          <span class="badge ${priorityClass}">${data.priority.toUpperCase()} PRIORITY</span>
+          <span class="badge">${data.category}</span>
+          <span class="badge">${data.sentiment}</span>
+          <p><strong>Summary:</strong> ${data.summary}</p>
+          <p><strong>SLA:</strong> ${data.sla_hours} hours (computed, not asked of the AI)</p>
+          <pre>${JSON.stringify(data, null, 2)}</pre>
+        `;
+      } catch (err) {
+        resultDiv.innerHTML = `<p class="error">Request failed: ${err}</p>`;
+      } finally {
+        button.disabled = false;
+        button.textContent = "Triage Ticket";
+      }
+    }
+  </script>
+</body>
+</html>
