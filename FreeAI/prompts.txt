@@ -1,0 +1,50 @@
+
+Build me a complete, polished personal portfolio and resume website for
+a final-year engineering student looking for a job. Treat this as a
+real, launch-ready site, not a rough draft.
+
+Overall design direction:
+- Dark theme with a single accent color of your choice (electric blue,
+  emerald, or amber all work well), used consistently for buttons,
+  links, and highlights
+- Clean, modern sans-serif typography, generous whitespace, and a
+  clear visual hierarchy
+- Smooth scroll navigation with a sticky top nav bar that highlights
+  the current section as the user scrolls
+- Subtle entrance animations as sections scroll into view, a gentle
+  fade up, nothing distracting
+- Fully responsive: looks polished on mobile, tablet, and desktop
+
+Sections, in this order:
+1. Hero: a placeholder full name, a one-line professional tagline
+   ("Final-year CS student building things that matter"), a short
+   2-sentence intro, a prominent "Download Resume" button, and a
+   secondary "View Projects" button that scrolls down to that section
+2. About Me: a 3 to 4 sentence bio, plus a small row of quick facts
+   (location, current year and college, one line about interests
+   outside tech)
+3. Skills: organized into 3 to 4 categories (for example Languages,
+   Frameworks and Tools, Currently Learning), shown as a clean grid or
+   pill-style tags, not a plain bullet list
+4. Projects: exactly 3 project cards, each with a title, a 2-sentence
+   description of what it does and why it matters, 3 to 4 tech stack
+   tags, and two links (Live Demo and GitHub). Use realistic placeholder
+   content, for example an expense tracker app, a college event
+   management system, and a small machine learning project
+5. Resume: an embedded PDF viewer pointing at a placeholder resume
+   file path, plus a clear "Download Resume (PDF)" button
+6. Contact: an email address, icon links to LinkedIn and GitHub, and a
+   short call to action line like "Open to internships and full-time
+   roles, let's talk"
+
+Technical requirements:
+- Plain HTML, CSS, and vanilla JavaScript only, no build tools or
+  frameworks, so it runs by opening index.html directly
+- A proper page title and a meta description tag
+- Comments in the code marking each section clearly
+- Every nav link and button actually works and scrolls to the right
+  place
+- A simple favicon reference, even if it's a placeholder
+
+The goal is something a student could realistically use today, not a
+sketch. Take the time to make it look genuinely professional.

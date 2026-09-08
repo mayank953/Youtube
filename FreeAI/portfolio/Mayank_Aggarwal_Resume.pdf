@@ -1,0 +1,124 @@
+%PDF-1.4
+1 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Kids [3 0 R]
+/Count 1
+>>
+endobj
+3 0 obj
+<<
+/Type /Page
+/Parent 2 0 R
+/MediaBox [0 0 612 792]
+/Contents 4 0 R
+/Resources <<
+/Font <<
+/F1 5 0 R
+>>
+>>
+>>
+endobj
+4 0 obj
+<<
+/Length 5 0 R
+>>
+stream
+BT
+/F1 24 Tf
+70 750 Td
+(Mayank Aggarwal) Tj
+0 -30 Td
+/F1 14 Tf
+(Tech Associate | Goldman Sachs) Tj
+0 -25 Td
+(New Delhi, India • mayank.aggarwal@email.com • +91 XXXXX XXXXX) Tj
+0 -40 Td
+/F1 12 Tf
+(PROFESSIONAL SUMMARY) Tj
+0 -15 Td
+/F1 10 Tf
+Results-driven engineer with 6+ years of experience in large-scale data processing, machine learning, and financial systems automation. Proven track record of delivering production-ready solutions that impact business outcomes at scale. Tj
+0 -25 Td
+(EXPERIENCE) Tj
+0 -15 Td
+/F1 11 Tf
+Tech Associate, Goldman Sachs | Nov 2019 - Present Tj
+0 -12 Td
+/F1 10 Tf
+• Led automation of $2B expense/revenue transfers across GSCO business lines
+• Built data processing systems handling 150M+ trades monthly
+• Automated repo fails processing, reducing manual effort by 75%
+• Mentor interns and conduct technical interviews for Controllers Technology team Tj
+0 -20 Td
+/F1 11 Tf
+Data Scientist / MLE, OYO Rooms | Jun 2019 - Oct 2019 Tj
+0 -12 Td
+/F1 10 Tf
+• Developed image scoring model eliminating manual review for hotel photos
+• Created personalized ranking system using XGBoost and Deep Learning
+• Deployed models via Docker and AWS SageMaker for production use Tj
+0 -20 Td
+/F1 11 Tf
+Summer Intern, OYO Rooms | May 2018 - Jul 2018 Tj
+0 -12 Td
+/F1 10 Tf
+• Automated WhatsApp chat processing for booking confirmations/cancellations
+• Achieved 95% intent classification accuracy on 50K+ messages
+• Generated ₹36.7 lakh/month GMV impact through automation Tj
+0 -25 Td
+(EDUCATION) Tj
+0 -15 Td
+/F1 11 Tf
+B.E. (Hons) in Engineering | Netaji Subhash Institute of Technology, Delhi Tj
+0 -12 Td
+/F1 10 Tf
+GPA: 8.3/10 | Graduated: 2019
+Relevant Coursework: AI, Data Structures, Algorithms, Machine Learning Tj
+0 -25 Td
+(SKILLS) Tj
+0 -15 Td
+/F1 10 Tf
+Languages: Java, Python, C++, C, R, MATLAB, SQL
+Frameworks: Apache Spark, Docker, AWS SageMaker, Flask, Linux
+ML/AI: TensorFlow, Keras, scikit-learn, XGBoost, NumPy, pandas, NLTK
+Core: Data Structures, Algorithms, System Design, Feature Engineering, EDA Tj
+0 -25 Td
+(ACHIEVEMENTS) Tj
+0 -15 Td
+/F1 11 Tf
+Accelerated Promotion to Associate (2021) | Goldman Sachs Tj
+0 -12 Td
+/F1 10 Tf
+Delhi Conversion 2X Project | OYO Rooms Tj
+0 -12 Td
+/F1 10 Tf
+EC3 Research Algorithm | IIIT-Delhi Summer Internship Tj
+ET
+endstream
+endobj
+5 0 obj
+180
+endobj
+xref
+0 6
+0000000000 65535 f
+0000000010 00000 n
+0000000060 00000 n
+0000000117 00000 n
+0000000207 00000 n
+0000000365 00000 n
+trailer
+<<
+/Size 6
+/Root 1 0 R
+>>
+startxref
+555
+%%EOF

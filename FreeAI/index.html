@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mayank Aggarwal - Tech Associate at Goldman Sachs | Data Science & Machine Learning Portfolio">
+    <title>Mayank Aggarwal | Personal Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00f2fe;
+            --accent-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            --bg-primary: #08090d;
+            --bg-secondary: #0f1117;
+            --bg-card: #151821;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #1e293b;
+            --radius: 12px;
+            --font-main: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:var(--font-main);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;}
+        a {color:var(--accent);text-decoration:none;}
+        a:hover {color:var(--accent);}
+        .container {max-width:1100px;margin:0 auto;padding:0 20px;}
+        section {padding:80px 0;}
+        h1,h2,h3 {font-weight:700;letter-spacing:-0.02em;color:var(--text-primary);}
+        .section-title {font-size:2rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+        .section-title span {background:var(--accent-gradient);-webkit-background-clip:color;-webkit-text-fill-color:transparent;background-clip:text;}
+        .section-subtitle {color:var(--text-secondary);font-size:1.1rem;max-width:600px;margin-bottom:30px;}
+        .badge {display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:9999px;background:rgba(0,242,254,0.1);border:1px solid rgba(0,242,254,0.2);color:var(--accent);font-size:.85rem;font-weight:500;}
+        .btn {display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius);font-weight:600;transition:background .3s;}
+        .btn-primary {background:var(--accent-gradient);color:#fff;}
+        .btn-primary:hover {opacity:0.9;}
+        .btn-secondary {background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);}
+        .btn-secondary:hover {background:var(--bg-secondary);}
+        .hero {min-height:100vh;display:flex;align-items:center;padding-top:100px;}
+        .hero-title {font-size:clamp(2.5rem,5vw,4rem);margin-bottom:16px;font-weight:800;}
+        .hero-tagline {font-size:clamp(1.2rem,2.5vw,1.5rem);color:var(--text-secondary);margin-bottom:20px;}
+        .hero-tagline strong {color:var(--accent);font-weight:600;}
+        .hero-description {font-size:1.1rem;color:var(--text-muted);margin-bottom:30px;max-width:650px;line-height:1.8;}
+        .hero-stats {display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px;padding-top:30px;border-top:1px solid var(--border);}
+        .stat-card {background:var(--bg-card);padding:20px;border-radius:var(--radius);text-align:center;border:1px solid var(--border);}
+        .stat-number {font-size:1.8rem;font-weight:800;background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;margin-bottom:4px;}
+        .stat-label {font-size:.85rem;color:var(--text-muted);font-weight:500;}
+        .about-grid {display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:start;}
+        .about-bio p {color:var(--text-secondary);font-size:1.05rem;margin-bottom:20px;line-height:1.8;}
+        .facts-list {display:flex;flex-direction:column;gap:12px;}
+        .fact-item {display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);}
+        .fact-icon {font-size:1.4rem;width:40px;height:40px;border-radius:8px;background:rgba(0,242,254,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .fact-details {display:flex;flex-direction:column;}
+        .fact-title {font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);font-weight:600;}
+        .fact-value {font-size:.95rem;color:var(--text-primary);font-weight:500;}
+        .timeline {position:relative;padding-left:28px;}
+        .timeline::before {content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:var(--border);}
+        .timeline-card {position:relative;margin-bottom:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+        .timeline-card::before {content:'';position:absolute;left:-35px;top:24px;width:12px;height:12px;border-radius:50%;background:var(--accent);}
+        .timeline-header {display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:12px;}
+        .role-title {font-size:1.25rem;font-weight:700;color:var(--text-primary);}
+        .company-name {color:var(--accent);font-weight:600;font-size:1rem;}
+        .date-badge {background:var(--bg-secondary);border:1px solid var(--border);padding:4px 12px;border-radius:9999px;font-size:.8rem;color:var(--text-secondary);font-weight:500;}
+        .bullets {list-style:none;margin-bottom:16px;}
+        .bullets li {position:relative;padding-left:20px;color:var(--text-secondary);font-size:.95rem;margin-bottom:8px;}
+        .bullets li::before {content:"•";position:absolute;left:0;color:var(--accent);font-weight:bold;}
+        .tech-tags {display:flex;flex-wrap:wrap;gap:8px;}
+        .tech-tag {background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-muted);padding:4px 10px;border-radius:9999px;font-size:.8rem;font-weight:500;}
+        .skills-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+        .skill-card {background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+        .skill-card-icon {font-size:1.8rem;margin-bottom:12px;}
+        .skill-card h3 {font-size:1.15rem;margin-bottom:12px;}
+        .pills {display:flex;flex-wrap:wrap;gap:8px;}
+        .pill {background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-secondary);padding:6px 12px;border-radius:9999px;font-size:.85rem;font-weight:500;}
+        .projects-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
+        .project-card {background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+        .project-header {display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+        .project-folder {font-size:2rem;}
+        .project-title {font-size:1.3rem;margin-bottom:10px;}
+        .project-desc {color:var(--text-secondary);font-size:.95rem;margin-bottom:20px;line-height:1.6;}
+        .project-stack {display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+        .project-stack span {font-family:var(--font-code);font-size:.78rem;color:var(--accent);}
+        .project-links {display:flex;gap:12px;}
+        .project-link {color:var(--text-secondary);text-decoration:none;font-size:.9rem;font-weight:500;display:inline-flex;align-items:center;gap:4px;}
+        .project-link:hover {color:var(--accent);}
+        .resume-card {background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;max-width:800px;margin:0 auto;}
+        .resume-card h3 {font-size:1.6rem;margin-bottom:12px;}
+        .resume-card p {color:var(--text-secondary);margin-bottom:24px;font-size:1.05rem;}
+        .resume-highlights-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;text-align:left;}
+        .resume-box {background:var(--bg-secondary);border:1px solid var(--border);padding:14px;border-radius:var(--radius);}
+        .resume-box-title {font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:6px;}
+        .resume-box-desc {font-size:.85rem;color:var(--text-muted);}
+        .contact-box {background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;text-align:center;max-width:750px;margin:0 auto;}
+        .contact-box h2 {font-size:2.2rem;margin-bottom:16px;}
+        .contact-box p {color:var(--text-secondary);font-size:1.1rem;margin-bottom:28px;}
+        .contact-links {display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+        .contact-btn {display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-weight:500;transition:background .3s,border-color .3s,color .3s;}
+        .contact-btn:hover {border-color:var(--accent);color:var(--accent);}
+        footer {padding:32px 0;border-top:1px solid var(--border);text-align:center;color:var(--text-muted);font-size:.9rem;}
+        @media (max-width:900px){
+            .about-grid{grid-template-columns:1fr;}
+            .hero-stats{grid-template-columns:repeat(2,1fr);}
+            .resume-highlights-grid{grid-template-columns:1fr;}
+        }
+        @media (max-width:768px){
+            section{padding:50px 0;}
+            .hero-title{font-size:2.2rem;}
+            .projects-grid{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#hero" class="logo">M<span>.</span>A</a>
+            <ul class="nav-links" style="display:flex;align-items:center;gap:16px;list-style:none;">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge"><span class="badge"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent);animation:pulse 2s infinite;"></span>Open to Opportunities</span></div>
+                <h1 class="hero-title">Mayank Aggarwal</h1>
+                <p class="hero-tagline">Tech Associate at <strong>Goldman Sachs</strong></p>
+                <p class="hero-description">
+                    Software Engineer & ML Specialist with 6+ years of experience engineering high-throughput financial data pipelines and deploying scalable machine learning solutions.
+                </p>
+                <div class="btn-group" style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <a href="Mayank_Aggarwal_Resume.pdf" class="btn btn-primary" download>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                        Download Resume
+                    </a>
+                    <a href="#projects" class="btn btn-secondary">View Projects</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-card"><span class="stat-number">6+</span><span class="stat-label">Years Experience</span></div>
+                    <div class="stat-card"><span class="stat-number">$2B+</span><span class="stat-label">Transfers Automated</span></div>
+                    <div class="stat-card"><span class="stat-number">150M+</span><span class="stat-label">Trades Processed</span></div>
+                    <div class="stat-card"><span class="stat-number">95%</span><span class="stat-label">ML Accuracy Rate</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About <span>Me</span></h2>
+                <p class="section-subtitle">A quick background on my engineering journey and career highlights.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-bio">
+                    <p>
+                        I hold a B.E. (Hons) in Engineering from Netaji Subhash Institute of Technology (NSIT), Delhi with a GPA of 8.3/10. My professional career centers on developing large-scale distributed data processing systems and machine learning models.
+                    </p>
+                    <p>
+                        Currently at Goldman Sachs, I architect core data systems in the Controllers Department, leading automation initiatives for financial asset tracking and trade refiners handling over 150 million records. In recognition of high-impact deliveries, I received an accelerated promotion to Tech Associate in 2021.
+                    </p>
+                    <p>
+                        Beyond building enterprise tech, I enjoy competitive programming, exploring ML algorithms, and writing technical articles on Medium (@mayank953).
+                    </p>
+                </div>
+                <div class="facts-list">
+                    <div class="fact-item"><div class="fact-icon">📍</div><div class="fact-details"><span class="fact-title">Location</span><span class="fact-value">New Delhi, India</span></div></div>
+                    <div class="fact-item"><div class="fact-icon">🎓</div><div class="fact-details"><span class="fact-title">Education</span><span class="fact-value">B.E. (Hons) • NSIT Delhi (GPA: 8.3)</span></div></div>
+                    <div class="fact-item"><div class="fact-icon">💼</div><div class="fact-details"><span class="fact-title">Current Role</span><span class="fact-value">Tech Associate @ Goldman Sachs</span></div></div>
+                    <div class="fact-item"><div class="fact-icon">✍️</div><div class="fact-details"><span class="fact-title">Publication</span><span class="fact-value">Medium Tech Writer (@mayank953)</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Work <span>Experience</span></h2>
+                <p class="section-subtitle">Track record of building data pipelines and production ML systems.</p>
+            </div>
+            <div class="timeline">
+                <!-- Experience Item 1 -->
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="role-title">Tech Associate</h3>
+                            <div class="company-name">Goldman Sachs (Controllers Tech)</div>
+                        </div>
+                        <span class="date-badge">Nov 2019 – Present</span>
+                    </div>
+                    <ul class="bullets">
+                        <li><strong>Intra US Transfer Pricing:</strong> Leading a project automating $2B in expense & revenue transfers across GSCO entities, modernizing legacy macro workflows into robust pipelines.</li>
+                        <li><strong>Trade Count Refiner:</strong> Built a Spark refiner from scratch processing 150M+ trades, cutting SEC filing reporting time from 15 days to automated quarterly cycles.</li>
+                        <li><strong>Repo Data Sourcing:</strong> Architected confidential data processing system for firm lockup numbers, making analytics available within 4 hours.</li>
+                        <li><strong>Repo Fails Automation:</strong> Automated monthly repurchase agreement reversal postings to Firm General Ledger, saving 4 man-hours per entity.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Java</span><span class="tech-tag">Apache Spark</span><span class="tech-tag">Sybase ASE</span><span class="tech-tag">Linux</span><span class="tech-tag">Eclipse Collections</span>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="role-title">Data Scientist / MLE</h3>
+                            <div class="company-name">OYO Rooms</div>
+                        </div>
+                        <span class="date-badge">Jun 2019 – Oct 2019</span>
+                    </div>
+                    <ul class="bullets">
+                        <li><strong>Image Scoring Model:</strong> Created automated photo scoring pipeline to replace manual inspection, deployed with Docker & AWS SageMaker.</li>
+                        <li><strong>Learning to Rank:</strong> Applied XGBoost & Deep Learning algorithms to personalize hotel ranking and optimize conversion rates.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span><span class="tech-tag">XGBoost</span><span class="tech-tag">Deep Learning</span><span class="tech-tag">Docker</span><span class="tech-tag">AWS SageMaker</span>
+                    </div>
+                </div>
+
+                <!-- Experience Item 3 -->
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="role-title">Summer Intern</h3>
+                            <div class="company-name">OYO Rooms</div>
+                        </div>
+                        <span class="date-badge">May 2018 – Jul 2018</span>
+                    </div>
+                    <ul class="bullets">
+                        <li><strong>WhatsApp Chat Automation:</strong> Built an NLP intent classifier (95% accuracy) on 50K+ messages, driving ₹36.7 Lakh/month GMV impact.</li>
+                        <li><strong>Conversion EDA:</strong> Conducted comprehensive data analysis across user segments in Delhi to increase search conversion rates.</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tech-tag">NLP</span><span class="tech-tag">scikit-learn</span><span class="tech-tag">Flask</span><span class="tech-tag">Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical <span>Skills</span></h2>
+                <p class="section-subtitle">Languages, frameworks, and domain expertise I utilize daily.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-card-icon">💻</div>
+                    <h3>Languages</h3>
+                    <div class="pills">
+                        <span class="pill">Java</span><span class="pill">Python</span><span class="pill">C++</span><span class="pill">C</span><span class="pill">SQL</span><span class="pill">R</span><span class="pill">MATLAB</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-icon">⚡</div>
+                    <h3>Frameworks & Tools</h3>
+                    <div class="pills">
+                        <span class="pill">Apache Spark</span><span class="pill">Docker</span><span class="pill">AWS SageMaker</span><span class="pill">Flask</span><span class="pill">Sybase ASE</span><span class="pill">Linux / Bash</span><span class="pill">Git</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-icon">🤖</div>
+                    <h3>Data Science & ML</h3>
+                    <div class="pills">
+                        <span class="pill">TensorFlow</span><span class="pill">Keras</span><span class="pill">scikit-learn</span><span class="pill">XGBoost</span><span class="pill">NumPy</span><span class="pill">pandas</span><span class="pill">NLP / NLTK</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-icon">🧠</div>
+                    <h3>Core Engineering</h3>
+                    <div class="pills">
+                        <span class="pill">Data Structures</span><span class="pill">Algorithms</span><span class="pill">Distributed Systems</span><span class="pill">ETL Pipelines</span><span class="pill">Feature Engineering</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured <span>Projects</span></h2>
+                <p class="section-subtitle">Key engineering solutions and machine learning implementations.</p>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-folder">💬</span>
+                        </div>
+                        <h3 class="project-title">WhatsApp Intent Automation</h3>
+                        <p class="project-desc">
+                            Automated booking confirmation and cancellations via WhatsApp using an NLP machine learning model trained on 50K+ messages with 95% accuracy.
+                        </p>
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-stack"><span>#Python</span> <span>#NLP</span> <span>#Flask</span> <span>#scikit-learn</span></div>
+                        <div class="project-links"><a href="https://github.com/mayank953" target="_blank" class="project-link">GitHub →</a></div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-folder">🖼️</span>
+                        </div>
+                        <h3 class="project-title">Image Scoring & Ranking Engine</h3>
+                        <p class="project-desc">
+                            Deep Learning model for automatic image quality scoring deployed via Docker & AWS SageMaker to optimize hotel search ranking algorithms.
+                        </p>
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-stack"><span>#DeepLearning</span> <span>#Docker</span> <span>#SageMaker</span> <span>#XGBoost</span></div>
+                        <div class="project-links"><a href="https://github.com/mayank953" target="_blank" class="project-link">GitHub →</a></div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-header">
+                            <span class="project-folder">🔬</span>
+                        </div>
+                        <h3 class="project-title">EC3: Ensemble Classification</h3>
+                        <p class="project-desc">
+                            Novel algorithmic approach developed during IIIT-Delhi research internship combining clustering & classification to resolve extreme class imbalance.
+                        </p>
+                    </div>
+                    <div class="project-footer">
+                        <div class="project-stack"><span>#Python</span> <span>#EnsembleLearning</span> <span>#Clustering</span> <span>#Research</span></div>
+                        <div class="project-links"><a href="https://github.com/mayank953" target="_blank" class="project-link">GitHub →</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUME SUMMARY SECTION -->
+    <section id="resume">
+        <div class="container">
+            <div class="resume-card">
+                <h3>Resume Overview</h3>
+                <p>Looking for full-time engineering and ML roles where I can build impactful systems.</p>
+                <div class="resume-highlights-grid">
+                    <div class="resume-box"><div class="resume-box-title">Goldman Sachs</div><div class="resume-box-desc">Accelerated promotion to Associate in 2021.</div></div>
+                    <div class="resume-box"><div class="resume-box-title">Data Processing</div><div class="resume-box-desc">Built Spark refiners handling 150M+ trades.</div></div>
+                    <div class="resume-box"><div class="resume-box-title">ML Production</div><div class="resume-box-desc">95% Intent Classification on 50K+ messages.</div></div>
+                </div>
+                <a href="Mayank_Aggarwal_Resume.pdf" class="btn btn-primary" download>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                    Download Full Resume (PDF)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <h2>Let's <span>Connect</span></h2>
+                <p>Open to engineering roles, collaborations, and technical discussions.</p>
+                <div class="contact-links">
+                    <a href="mailto:mayank.aggarwal@email.com" class="contact-btn"><span>✉️ Email</span></a>
+                    <a href="https://linkedin.com/in/mayank953" target="_blank" class="contact-btn"><span>🔗 LinkedIn</span></a>
+                    <a href="https://github.com/mayank953" target="_blank" class="contact-btn"><span>💻 GitHub</span></a>
+                    <a href="https://medium.com/@mayank953" target="_blank" class="contact-btn"><span>✍️ Medium</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Mayank Aggarwal. Built with precision.</p>
+        </div>
+    </footer>
+
+    <!-- Simple pulse animation for badge dot -->
+    <style>
+    @keyframes pulse {
+        0%,100%{transform:scale(1);opacity:1;}
+        50%{transform:scale(1.3);opacity:0.6;}
+    }
+    </style>
+
+</body>
+</html>

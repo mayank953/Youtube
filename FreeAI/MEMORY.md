@@ -1,0 +1,1 @@
+- [Mayank Aggarwal Profile](memory/mayank-aggarwal-profile.md) — Professional background and experience summary

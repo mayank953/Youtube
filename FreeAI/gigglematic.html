@@ -1,0 +1,571 @@
+<title>Gigglematic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  :root{
+    --bg:#FFF4DC;
+    --dot:#FFE29A;
+    --panel:#FFFFFF;
+    --panel-2:#3A2A52;
+    --screen-text:#FFD666;
+    --screen-text-dim:#B9A8D8;
+    --ink:#2B1B3D;
+    --ink-soft:#6B5B85;
+    --accent:#FF3D68;
+    --accent-ink:#FFFFFF;
+    --accent-2:#1FAE8E;
+    --accent-3:#FFC93C;
+    --border:#2B1B3D;
+    --shadow:#2B1B3D;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1030;
+      --dot:#2A1B47;
+      --panel:#241536;
+      --panel-2:#150C24;
+      --screen-text:#FFD666;
+      --screen-text-dim:#8C7BB0;
+      --ink:#FFF4DC;
+      --ink-soft:#C9B8E8;
+      --accent:#FF5C82;
+      --accent-ink:#1B1030;
+      --accent-2:#2BD9B0;
+      --accent-3:#FFD666;
+      --border:#FFF4DC;
+      --shadow:#000000;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1030;
+    --dot:#2A1B47;
+    --panel:#241536;
+    --panel-2:#150C24;
+    --screen-text:#FFD666;
+    --screen-text-dim:#8C7BB0;
+    --ink:#FFF4DC;
+    --ink-soft:#C9B8E8;
+    --accent:#FF5C82;
+    --accent-ink:#1B1030;
+    --accent-2:#2BD9B0;
+    --accent-3:#FFD666;
+    --border:#FFF4DC;
+    --shadow:#000000;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(var(--dot) 2.5px, transparent 2.6px) 0 0/28px 28px,
+      var(--bg);
+    color:var(--ink);
+    font-family:'Fredoka',ui-rounded,'Baloo 2',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 16px;
+  }
+
+  .stage{
+    width:100%;
+    max-width:400px;
+  }
+
+  .machine{
+    position:relative;
+    background:var(--panel);
+    border:4px solid var(--border);
+    border-radius:28px 28px 34px 34px;
+    box-shadow:9px 9px 0 var(--shadow);
+    padding:26px 22px 22px;
+    transform:rotate(-0.6deg);
+  }
+
+  .badge{
+    position:absolute;
+    top:-20px;
+    right:-14px;
+    background:var(--accent-3);
+    color:var(--ink);
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:9px 10px 7px;
+    border:3px solid var(--border);
+    border-radius:50%;
+    width:78px;
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    line-height:1.15;
+    transform:rotate(9deg);
+    box-shadow:3px 3px 0 var(--shadow);
+  }
+
+  .marquee{
+    text-align:center;
+    margin-bottom:18px;
+  }
+  .marquee h1{
+    margin:0;
+    font-size:clamp(28px,7vw,34px);
+    font-weight:700;
+    letter-spacing:.01em;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  .marquee h1 .tm{
+    font-size:.5em;
+    vertical-align:super;
+    color:var(--accent);
+  }
+  .marquee .tagline{
+    margin:4px 0 0;
+    font-family:'Space Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    min-height:1.4em;
+  }
+
+  .screen{
+    background:var(--panel-2);
+    border:3px solid var(--border);
+    border-radius:16px;
+    padding:14px 16px 12px;
+    box-shadow:inset 0 3px 0 rgba(0,0,0,.18);
+  }
+  .screen-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+    font-family:'Space Mono',monospace;
+  }
+  .face{
+    font-size:13px;
+    font-weight:700;
+    color:var(--screen-text);
+    white-space:nowrap;
+    transition:color .2s ease;
+  }
+  .mood{
+    font-size:11px;
+    color:var(--screen-text-dim);
+    text-align:right;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .history{
+    font-family:'Space Mono',monospace;
+    font-size:13px;
+    color:var(--screen-text-dim);
+    text-align:right;
+    min-height:1.3em;
+    margin-top:6px;
+  }
+  .readout{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:clamp(30px,9vw,40px);
+    color:var(--screen-text);
+    text-align:right;
+    letter-spacing:.01em;
+    font-variant-numeric:tabular-nums;
+    overflow-x:auto;
+    white-space:nowrap;
+    padding-bottom:2px;
+  }
+  .readout::-webkit-scrollbar{display:none;}
+
+  .pad{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+  }
+
+  button{
+    font-family:'Fredoka',ui-rounded,sans-serif;
+    font-weight:600;
+    font-size:18px;
+    color:var(--ink);
+    background:var(--accent-3);
+    border:3px solid var(--border);
+    border-radius:14px;
+    padding:14px 0;
+    box-shadow:3px 3px 0 var(--shadow);
+    cursor:pointer;
+    transition:transform .06s ease, box-shadow .06s ease;
+  }
+  button:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--shadow);}
+  button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--shadow);}
+  button:focus-visible{outline:3px solid var(--accent-2);outline-offset:2px;}
+
+  button.op{background:var(--accent-2);color:var(--accent-ink);}
+  button.fn{background:var(--panel);color:var(--ink-soft);}
+  button.zero{grid-column:span 2;}
+  button.equals{
+    background:var(--accent);
+    color:var(--accent-ink);
+    font-size:20px;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    button.equals{animation:nudge 2.6s ease-in-out infinite;}
+  }
+  @keyframes nudge{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-2px);}
+  }
+  button.equals:active{animation:none;transform:translate(3px,3px);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+
+  @media (max-width:360px){
+    .badge{width:66px;height:66px;font-size:10px;top:-16px;right:-10px;}
+  }
+
+  .theme-toggle{
+    position:absolute;
+    top:-16px;
+    left:-14px;
+    width:44px;
+    height:44px;
+    padding:0;
+    background:var(--panel);
+    color:var(--ink);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    line-height:1;
+  }
+
+  @media (max-width:360px){
+    .theme-toggle{width:38px;height:38px;top:-13px;left:-10px;font-size:16px;}
+  }
+</style>
+
+<div class="stage">
+  <main class="machine" role="application" aria-label="Gigglematic calculator">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
+    <div class="badge" id="badge">ASK ME<br>ANYTHING*</div>
+    <header class="marquee">
+      <h1>Gigglematic<span class="tm">™</span></h1>
+      <p class="tagline" id="tagline">Certified 100% Serious Mathematics</p>
+    </header>
+
+    <div class="screen">
+      <div class="screen-top">
+        <span class="face" id="face">(•_•)</span>
+        <span class="mood" id="mood">Ready when you are.</span>
+      </div>
+      <div class="readout" id="readout">0</div>
+      <div class="history" id="history">&nbsp;</div>
+    </div>
+
+    <div class="pad" id="pad">
+      <button class="fn" data-action="clear">AC</button>
+      <button class="fn" data-action="back">⌫</button>
+      <button class="fn" data-action="percent">%</button>
+      <button class="op" data-action="op" data-value="÷">÷</button>
+
+      <button data-action="digit" data-value="7">7</button>
+      <button data-action="digit" data-value="8">8</button>
+      <button data-action="digit" data-value="9">9</button>
+      <button class="op" data-action="op" data-value="×">×</button>
+
+      <button data-action="digit" data-value="4">4</button>
+      <button data-action="digit" data-value="5">5</button>
+      <button data-action="digit" data-value="6">6</button>
+      <button class="op" data-action="op" data-value="−">−</button>
+
+      <button data-action="digit" data-value="1">1</button>
+      <button data-action="digit" data-value="2">2</button>
+      <button data-action="digit" data-value="3">3</button>
+      <button class="op" data-action="op" data-value="+">+</button>
+
+      <button class="zero" data-action="digit" data-value="0">0</button>
+      <button data-action="decimal">.</button>
+      <button class="equals" data-action="equals">=</button>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var readoutEl = document.getElementById('readout');
+  var historyEl = document.getElementById('history');
+  var faceEl = document.getElementById('face');
+  var moodEl = document.getElementById('mood');
+  var tagEl = document.getElementById('tagline');
+  var pad = document.getElementById('pad');
+  var themeToggle = document.getElementById('themeToggle');
+  var root = document.documentElement;
+  var THEME_KEY = 'gigglematic-theme';
+
+  function systemPrefersDark(){
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function effectiveTheme(){
+    var explicit = root.getAttribute('data-theme');
+    return explicit || (systemPrefersDark() ? 'dark' : 'light');
+  }
+
+  function updateToggleIcon(){
+    var eff = effectiveTheme();
+    themeToggle.textContent = eff === 'dark' ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', eff === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  function applyTheme(theme){
+    if(theme === 'light' || theme === 'dark'){
+      root.setAttribute('data-theme', theme);
+    } else {
+      root.removeAttribute('data-theme');
+    }
+    updateToggleIcon();
+  }
+
+  function toggleTheme(){
+    var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try{ localStorage.setItem(THEME_KEY, next); }catch(e){}
+  }
+
+  (function initTheme(){
+    var saved = null;
+    try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
+    applyTheme(saved);
+  })();
+
+  themeToggle.addEventListener('click', toggleTheme);
+
+  if(window.matchMedia){
+    var schemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSchemeChange = function(){
+      if(!root.getAttribute('data-theme')) updateToggleIcon();
+    };
+    if(schemeQuery.addEventListener) schemeQuery.addEventListener('change', onSchemeChange);
+    else if(schemeQuery.addListener) schemeQuery.addListener(onSchemeChange);
+  }
+
+  var current = '0';
+  var previous = null;
+  var operator = null;
+  var overwrite = true;
+  var MAX_LEN = 14;
+
+  var praise = [
+    'Ta-da!', 'Math has spoken.', 'Boom. Numbers.', 'Nailed it.',
+    '*chef\'s kiss*', 'Certified correct.', 'Look at you go.',
+    'Flawless victory.', 'That checks out.'
+  ];
+
+  var taglines = [
+    'Certified 100% Serious Mathematics',
+    'Batteries not included (there are none)',
+    'As seen on nowhere in particular',
+    'Now with 12% more arithmetic',
+    'Division by zero voids warranty',
+    'Trusted by exactly one mascot'
+  ];
+  var tagIndex = 0;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion){
+    setInterval(function(){
+      tagIndex = (tagIndex + 1) % taglines.length;
+      tagEl.style.opacity = 0;
+      setTimeout(function(){
+        tagEl.textContent = taglines[tagIndex];
+        tagEl.style.opacity = 1;
+      }, 180);
+    }, 3600);
+    tagEl.style.transition = 'opacity .18s ease';
+  }
+
+  function opSymbolName(op){
+    return op === '÷' ? 'divided by' : op === '×' ? 'times' : op === '−' ? 'minus' : 'plus';
+  }
+
+  function prettify(numStr){
+    if(numStr === 'Error') return numStr;
+    var neg = numStr.charAt(0) === '-';
+    var body = neg ? numStr.slice(1) : numStr;
+    var parts = body.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return (neg ? '-' : '') + parts.join('.');
+  }
+
+  function setMood(face, text){
+    faceEl.textContent = face;
+    moodEl.textContent = text;
+  }
+
+  function render(){
+    readoutEl.textContent = prettify(current);
+    if(previous !== null && operator){
+      historyEl.textContent = prettify(previous) + ' ' + operator;
+    } else if(operator){
+      historyEl.textContent = current + ' ' + operator;
+    } else {
+      historyEl.innerHTML = '&nbsp;';
+    }
+  }
+
+  function clearAll(){
+    current = '0';
+    previous = null;
+    operator = null;
+    overwrite = true;
+    setMood('( -_-)', 'Poof! Gone.');
+    render();
+  }
+
+  function backspace(){
+    if(overwrite){
+      setMood('(•_•)', 'Nothing to erase.');
+      return;
+    }
+    current = current.length > 1 ? current.slice(0, -1) : '0';
+    if(current === '-' ) current = '0';
+    if(current === '0') overwrite = true;
+    setMood('(•_•)', 'Ready when you are.');
+    render();
+  }
+
+  function inputDigit(d){
+    if(overwrite){
+      current = d;
+      overwrite = false;
+    } else if(current.length < MAX_LEN){
+      current = current === '0' ? d : current + d;
+    } else {
+      setMood('(•_•)', 'That is plenty of digits.');
+      return;
+    }
+    render();
+  }
+
+  function inputDecimal(){
+    if(overwrite){
+      current = '0.';
+      overwrite = false;
+      render();
+      return;
+    }
+    if(current.indexOf('.') === -1 && current.length < MAX_LEN){
+      current += '.';
+      render();
+    }
+  }
+
+  function percent(){
+    var n = parseFloat(current);
+    if(isNaN(n)) return;
+    current = trimNumber(n / 100);
+    overwrite = true;
+    setMood('(•‿•)', 'Percenty.');
+    render();
+  }
+
+  function trimNumber(n){
+    var r = Math.round((n + Number.EPSILON) * 1e10) / 1e10;
+    return String(r);
+  }
+
+  function chooseOperator(op){
+    if(operator && !overwrite){
+      compute();
+    }
+    previous = current;
+    operator = op;
+    overwrite = true;
+    setMood('(•_•)', 'And then ' + opSymbolName(op) + '…');
+    render();
+  }
+
+  function compute(){
+    if(operator === null || previous === null) return;
+    var a = parseFloat(previous);
+    var b = parseFloat(current);
+    var result;
+
+    if(operator === '÷' && b === 0){
+      current = 'Error';
+      previous = null;
+      operator = null;
+      overwrite = true;
+      setMood('(x_x)', 'Whoa. You broke math.');
+      render();
+      return;
+    }
+
+    switch(operator){
+      case '+': result = a + b; break;
+      case '−': result = a - b; break;
+      case '×': result = a * b; break;
+      case '÷': result = a / b; break;
+      default: return;
+    }
+
+    current = trimNumber(result);
+    previous = null;
+    operator = null;
+    overwrite = true;
+
+    var abs = Math.abs(result);
+    if(!isFinite(result)){
+      setMood('(x_x)', 'That number does not exist.');
+    } else if(abs >= 1e9){
+      setMood('(O_O)', 'That\'s a LOT of jellybeans.');
+    } else if(result < 0){
+      setMood('(>_<)', 'Ooh, spooky negative vibes.');
+    } else if(result === 0){
+      setMood('(-_-)', 'Absolute. Zero. Chill.');
+    } else {
+      setMood('(^▽^)', praise[Math.floor(Math.random() * praise.length)]);
+    }
+    render();
+  }
+
+  pad.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    var action = btn.dataset.action;
+    if(action === 'digit') inputDigit(btn.dataset.value);
+    else if(action === 'decimal') inputDecimal();
+    else if(action === 'op') chooseOperator(btn.dataset.value);
+    else if(action === 'equals') compute();
+    else if(action === 'clear') clearAll();
+    else if(action === 'back') backspace();
+  });
+
+  window.addEventListener('keydown', function(e){
+    if(e.key >= '0' && e.key <= '9'){ inputDigit(e.key); return; }
+    if(e.key === '.'){ inputDecimal(); return; }
+    if(e.key === '+'){ chooseOperator('+'); return; }
+    if(e.key === '-'){ chooseOperator('−'); return; }
+    if(e.key === '*'){ chooseOperator('×'); return; }
+    if(e.key === '/'){ e.preventDefault(); chooseOperator('÷'); return; }
+    if(e.key === '%'){ percent(); return; }
+    if(e.key === 'Enter' || e.key === '='){ e.preventDefault(); compute(); return; }
+    if(e.key === 'Backspace'){ backspace(); return; }
+    if(e.key === 'Escape'){ clearAll(); return; }
+  });
+
+  render();
+})();
+</script>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mayank Aggarwal — Systems Engineer, Financial Controls</title>
+<meta name="description" content="Datasheet for Mayank Aggarwal: a Tech Associate at Goldman Sachs who builds the refiners and pipelines that reconcile trades and transfers into regulatory and ledger numbers. Open to senior engineering roles." />
+<meta name="author" content="Mayank Aggarwal" />
+<meta name="theme-color" content="#fbfaf6" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0f0d08" media="(prefers-color-scheme: dark)" />
+<meta property="og:type" content="profile" />
+<meta property="og:title" content="Mayank Aggarwal — Systems Engineer, Financial Controls" />
+<meta property="og:description" content="Builds the refiners and pipelines that reconcile hundreds of millions of trades and billions in transfers into the numbers a bank reports. Open to senior engineering roles." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f0d08'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' fill='%23f0a63e' text-anchor='middle'%3EMA%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:      #fbfaf6;
+    --ink:        #1b1d19;
+    --ink-soft:   #585b4f;
+    --rule:       #c4c2b3;
+    --grid:       #efeee4;
+    --bar:        #f2f0e6;
+    --accent:     #a0421b;
+    --accent-ink: #fbfaf6;
+
+    --mono:  "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --disp:  "Space Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+    --edge: clamp(1rem, 4vw, 2.5rem);
+    --maxw: 60rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#0f0d08; --ink:#e6c79a; --ink-soft:#b0916a; --rule:#3a3020;
+      --grid:#191509; --bar:#17130b; --accent:#f0a63e; --accent-ink:#0f0d08;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#0f0d08; --ink:#e6c79a; --ink-soft:#b0916a; --rule:#3a3020;
+    --grid:#191509; --bar:#17130b; --accent:#f0a63e; --accent-ink:#0f0d08;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: center top;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 0.9375rem;
+    line-height: 1.62;
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    body { opacity: 0; animation: fade .45s ease forwards; }
+    @keyframes fade { to { opacity: 1; } }
+  }
+
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+  a:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .skip {
+    position: absolute; left: 1rem; top: -3rem; z-index: 20;
+    background: var(--ink); color: var(--paper); padding: .5rem .9rem;
+    font-size: .78rem; border: 0; transition: top .15s ease;
+  }
+  .skip:focus { top: .6rem; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .55rem var(--edge);
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .nav__doc { color: var(--ink-soft); border: 0; }
+  .nav__links { display: flex; flex-wrap: wrap; gap: .1rem .95rem; list-style: none; }
+  .nav__links a { color: var(--ink-soft); border: 0; }
+  .nav__links a:hover { background: transparent; color: var(--accent); }
+  .nav__links a.is-active { color: var(--ink); }
+  .nav__links a.is-active::before { content: "▸ "; color: var(--accent); }
+  .nav__cv { color: var(--ink); border: 0; white-space: nowrap; }
+  .nav__cv:hover { background: transparent; color: var(--accent); }
+  @media (max-width: 720px) { .nav__links { display: none; } }
+
+  /* ---------- Sheet ---------- */
+  .doc {
+    position: relative;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 3.5rem) var(--edge) 0;
+  }
+  @media (min-width: 760px) {
+    .doc::before, .doc::after {
+      content: ""; position: absolute; top: clamp(1.4rem, 4vw, 2.4rem);
+      width: 12px; height: 12px; border: 1px solid var(--ink-soft);
+    }
+    .doc::before { left: calc(var(--edge) - 14px); border-right: 0; border-bottom: 0; }
+    .doc::after  { right: calc(var(--edge) - 14px); border-left: 0; border-bottom: 0; }
+  }
+
+  /* ---------- Masthead ---------- */
+  .mast {
+    display: grid; gap: 1.6rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 3px double var(--ink);
+  }
+  @media (min-width: 820px) {
+    .mast { grid-template-columns: 1fr auto; align-items: end; gap: 2rem 3rem; }
+  }
+  .mast__name {
+    font-family: var(--disp); font-weight: 700;
+    font-size: clamp(1.75rem, 6vw, 3.1rem); line-height: 1.04;
+    letter-spacing: .01em; text-transform: uppercase; overflow-wrap: break-word;
+  }
+  .mast__sub {
+    font-family: var(--disp); font-style: italic; color: var(--ink-soft);
+    font-size: clamp(.82rem, 2.4vw, 1rem); margin-top: .7rem;
+  }
+  .mast__meta { display: grid; gap: .18rem; font-size: .74rem; min-width: 15rem; }
+  .mast__meta > div { display: flex; gap: .5rem; }
+  .mast__meta dt {
+    color: var(--ink-soft); text-transform: uppercase; letter-spacing: .1em;
+    white-space: nowrap;
+  }
+  .mast__meta dd { white-space: nowrap; }
+  .mast__meta .dots { flex: 1; min-width: 1.2rem; border-bottom: 1px dotted var(--rule); transform: translateY(-.28em); }
+
+  .mast__actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .76rem; letter-spacing: .08em; text-transform: uppercase;
+    padding: .7rem 1rem; border: 1px solid var(--ink); color: var(--ink);
+    background: var(--paper);
+  }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn svg { width: .95rem; height: .95rem; }
+  .btn--ghost { border-style: dashed; }
+
+  /* ---------- Sections ---------- */
+  .sec { padding: 2.2rem 0; border-bottom: 1px solid var(--rule); }
+  .sec:last-of-type { border-bottom: 0; }
+  section[id] { scroll-margin-top: 3.5rem; }
+  .sec__h {
+    display: flex; align-items: center; gap: .8rem;
+    font-family: var(--disp); font-weight: 700;
+    font-size: .95rem; letter-spacing: .05em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .sec__h .no { color: var(--accent); }
+  .sec__h .line { flex: 1; height: 0; border-top: 1px solid var(--ink); }
+
+  .prose { max-width: 64ch; }
+  .prose p + p { margin-top: .8rem; }
+  .prose strong { color: var(--ink); font-weight: 600; background: var(--bar); padding: 0 .15em; }
+  .lede { font-size: 1.02rem; }
+
+  /* ---------- TABLE 0 — parameter table (signature) ---------- */
+  .params-wrap { margin-top: 1.6rem; max-width: 46rem; }
+  .params-cap {
+    display: inline-block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-soft); padding: .35rem .6rem;
+    border: 1px solid var(--rule); border-bottom: 0; background: var(--paper);
+  }
+  table.params { width: 100%; border-collapse: collapse; font-size: .82rem; background: var(--paper); }
+  table.params th, table.params td { border: 1px solid var(--rule); padding: .5rem .7rem; text-align: left; }
+  table.params thead th {
+    font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500;
+  }
+  table.params td.v, table.params th.v { text-align: right; white-space: nowrap; }
+  table.params td.v { color: var(--accent); font-weight: 600; }
+  table.params tbody tr:nth-child(even) { background: var(--bar); }
+  table.params td.c { color: var(--ink-soft); }
+  .params-note { font-size: .72rem; color: var(--ink-soft); margin-top: .5rem; }
+
+  /* ---------- §1 History — line-printer log ---------- */
+  .hist { list-style: none; border-top: 1px solid var(--rule); }
+  .rec {
+    display: grid; grid-template-columns: 3.2rem 1fr; gap: .2rem 1rem;
+    padding: 1.1rem 0; border-bottom: 1px dashed var(--rule);
+  }
+  .rec:nth-child(even) {
+    background: var(--bar);
+    margin-inline: calc(var(--edge) * -1);
+    padding-inline: var(--edge);
+  }
+  .rec__n { color: var(--ink-soft); font-size: .78rem; padding-top: .12rem; }
+  .rec__top { display: flex; flex-wrap: wrap; gap: .2rem 1rem; align-items: baseline; justify-content: space-between; }
+  .rec__role { font-family: var(--disp); font-weight: 700; font-size: 1rem; }
+  .rec__date { color: var(--ink-soft); font-size: .78rem; white-space: nowrap; }
+  .rec__org { color: var(--accent); font-size: .82rem; margin: .1rem 0 .6rem; }
+  .rec__pts { list-style: none; display: grid; gap: .4rem; }
+  .rec__pts li { padding-left: 1.3rem; position: relative; font-size: .88rem; color: var(--ink-soft); }
+  .rec__pts li::before { content: ">"; position: absolute; left: 0; color: var(--accent); }
+  .rec__pts b { color: var(--ink); font-weight: 600; }
+  .rec__stack {
+    margin-top: .7rem; font-size: .76rem; color: var(--ink-soft);
+    display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline;
+  }
+  .rec__stack span {
+    color: var(--ink); border: 1px solid var(--rule); padding: 0 .35rem;
+    font-size: .64rem; letter-spacing: .1em;
+  }
+  .rec__note { margin-top: .45rem; font-size: .78rem; color: var(--ink); }
+  @media (max-width: 560px) {
+    .rec { grid-template-columns: 1fr; }
+    .rec__n { padding-top: 0; }
+  }
+
+  /* ---------- §2 Builds — parts ---------- */
+  .parts { border-top: 1px solid var(--rule); }
+  .part {
+    display: grid; grid-template-columns: 3.5rem 1fr; gap: .2rem 1rem;
+    padding: 1.1rem 0; border-bottom: 1px dashed var(--rule);
+  }
+  .part__id { color: var(--accent); font-size: .8rem; padding-top: .15rem; }
+  .part__name { font-family: var(--disp); font-weight: 700; font-size: 1rem; }
+  .part__desc { color: var(--ink-soft); font-size: .88rem; margin: .35rem 0 .6rem; max-width: 58ch; }
+  .part__spec { display: grid; gap: .15rem; font-size: .8rem; }
+  .part__spec > div { display: flex; gap: .6rem; }
+  .part__spec dt { color: var(--ink-soft); text-transform: uppercase; letter-spacing: .1em; font-size: .66rem; min-width: 6rem; padding-top: .12rem; }
+  .part__spec dd { flex: 1; }
+  @media (max-width: 560px) { .part { grid-template-columns: 1fr; } }
+
+  /* ---------- §3 Stack — bill of materials ---------- */
+  table.bom { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  table.bom th, table.bom td { border: 1px solid var(--rule); padding: .55rem .7rem; text-align: left; vertical-align: top; }
+  table.bom th {
+    width: 11rem; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-soft); font-weight: 500; background: var(--bar);
+  }
+  @media (max-width: 560px) {
+    table.bom, table.bom tbody, table.bom tr, table.bom th, table.bom td { display: block; width: auto; }
+    table.bom th { border-bottom: 0; }
+    table.bom td { margin-bottom: .6rem; }
+  }
+
+  /* ---------- §4 Contact ---------- */
+  .contact { max-width: 34rem; border-top: 1px solid var(--rule); }
+  .contact > div { display: flex; align-items: baseline; gap: .6rem; padding: .55rem 0; border-bottom: 1px dotted var(--rule); }
+  .contact dt { color: var(--ink-soft); text-transform: uppercase; letter-spacing: .1em; font-size: .68rem; }
+  .contact .dots { flex: 1; border-bottom: 1px dotted var(--rule); transform: translateY(-.28em); }
+  .contact dd { font-size: .84rem; }
+
+  /* ---------- Footer ---------- */
+  .foot { position: relative; max-width: var(--maxw); margin: 0 auto; padding: 2rem var(--edge) 3rem; text-align: center; }
+  @media (min-width: 760px) {
+    .foot::before, .foot::after {
+      content: ""; position: absolute; bottom: 1.6rem;
+      width: 12px; height: 12px; border: 1px solid var(--ink-soft);
+    }
+    .foot::before { left: calc(var(--edge) - 14px); border-right: 0; border-top: 0; }
+    .foot::after  { right: calc(var(--edge) - 14px); border-left: 0; border-top: 0; }
+  }
+  .foot__end { font-size: .74rem; letter-spacing: .2em; color: var(--ink-soft); }
+  .foot__dash { border: 0; border-top: 1px dashed var(--rule); margin: 0 0 1rem; }
+  .foot__meta { font-size: .7rem; color: var(--ink-soft); margin-top: .5rem; }
+
+  @media print {
+    body { background: #fff; color: #000; opacity: 1; animation: none; }
+    .nav, .skip, .mast__actions, .theme { display: none !important; }
+    .doc::before, .doc::after { display: none; }
+    a { color: #000; border: 0; }
+    .rec:nth-child(even), table.params tbody tr:nth-child(even), table.bom th { background: none; }
+  }
+</style>
+<noscript><style>body{opacity:1;animation:none}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#summary">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Sections">
+  <span class="nav__doc">DOC&nbsp;MA-2026</span>
+  <ul class="nav__links">
+    <li><a href="#summary">§0 Summary</a></li>
+    <li><a href="#history">§1 History</a></li>
+    <li><a href="#builds">§2 Builds</a></li>
+    <li><a href="#stack">§3 Stack</a></li>
+    <li><a href="#contact">§4 Contact</a></li>
+  </ul>
+  <div class="theme" style="display:flex;align-items:center;gap:.9rem">
+    <a href="Mayank_Aggarwal_Resume.pdf" class="nav__cv" download>CV&nbsp;↓</a>
+    <button id="themeToggle" type="button" aria-label="Switch colour theme"
+      style="appearance:none;background:none;border:1px solid var(--rule);color:var(--ink-soft);width:1.8rem;height:1.8rem;cursor:pointer;font-family:var(--mono);font-size:.85rem;line-height:1">◐</button>
+  </div>
+</nav>
+
+<main class="doc">
+  <header class="mast">
+    <div class="mast__id">
+      <h1 class="mast__name">Mayank Aggarwal</h1>
+      <p class="mast__sub">// systems engineer — financial controls &amp; data platforms</p>
+      <div class="mast__actions">
+        <a href="Mayank_Aggarwal_Resume.pdf" class="btn" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download CV
+        </a>
+        <a href="mailto:mayank953ai@gmail.com" class="btn btn--ghost">Contact →</a>
+      </div>
+    </div>
+    <dl class="mast__meta">
+      <div><dt>Document</dt><span class="dots"></span><dd>MA-2026</dd></div>
+      <div><dt>Revision</dt><span class="dots"></span><dd>3</dd></div>
+      <div><dt>Class</dt><span class="dots"></span><dd>Systems eng.</dd></div>
+      <div><dt>Location</dt><span class="dots"></span><dd>New Delhi, IN</dd></div>
+      <div><dt>Status</dt><span class="dots"></span><dd>Open to roles</dd></div>
+    </dl>
+  </header>
+
+  <!-- §0 SUMMARY -->
+  <section class="sec" id="summary" aria-labelledby="summary-h">
+    <h2 class="sec__h" id="summary-h"><span class="no">§0</span> Summary <span class="line"></span></h2>
+    <div class="prose">
+      <p class="lede">
+        I'm a Tech Associate at Goldman Sachs in the Controllers Department. I build the
+        refiners and pipelines that turn hundreds of millions of trades and billions in
+        transfers into the numbers a bank reports — to its regulators and to its own books.
+      </p>
+      <p>
+        Six years of that work: <strong>Spark</strong> refiners handling 150M+ trades,
+        transfer-pricing automation across GSCO entities, and confidential position sourcing —
+        systems that have to be correct, on time, and auditable. Before Goldman Sachs I shipped
+        machine-learning models at OYO Rooms and researched ensemble methods at IIIT-Delhi.
+      </p>
+    </div>
+
+    <div class="params-wrap">
+      <div class="params-cap">Table 0 — Summary of impact</div>
+      <table class="params">
+        <thead>
+          <tr><th>Parameter</th><th class="v">Value</th><th>Context</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Intra-US expense &amp; revenue transfers automated</td><td class="v">$2.0 B</td><td class="c">GSCO entities</td></tr>
+          <tr><td>Trades processed per refiner cycle</td><td class="v">150 M</td><td class="c">Trade Count Refiner</td></tr>
+          <tr><td>SEC filing preparation</td><td class="v">15 d → 1 d</td><td class="c">annual → quarterly</td></tr>
+          <tr><td>Intent classifier accuracy</td><td class="v">95 %</td><td class="c">50K+ messages</td></tr>
+          <tr><td>Time in production systems</td><td class="v">6 yr +</td><td class="c">2019 – present</td></tr>
+        </tbody>
+      </table>
+      <p class="params-note">Figures as delivered across roles, 2017–2026.</p>
+    </div>
+  </section>
+
+  <!-- §1 HISTORY -->
+  <section class="sec" id="history" aria-labelledby="history-h">
+    <h2 class="sec__h" id="history-h"><span class="no">§1</span> Professional history <span class="line"></span></h2>
+    <ol class="hist">
+      <li class="rec">
+        <div class="rec__n">001</div>
+        <div>
+          <div class="rec__top"><span class="rec__role">Tech Associate</span><span class="rec__date">2019-11 → present</span></div>
+          <div class="rec__org">Goldman Sachs · Controllers Technology</div>
+          <ul class="rec__pts">
+            <li><b>Intra-US Transfer Pricing.</b> Leading automation of $2.0 B in expense and revenue transfers across GSCO entities, replacing a failure-prone legacy macro with monitored pipelines and reference-data enrichment.</li>
+            <li><b>Trade Count Refiner.</b> Built a Spark refiner from scratch — 150M+ trades per run — turning a 15-day annual SEC filing exercise into a controlled quarterly job with logic owned by users.</li>
+            <li><b>Repo sourcing into lockup.</b> Architected a data platform for confidential repo positions with heavy peripheral dependencies, delivering lockup numbers within 4 hours of cutoff.</li>
+            <li><b>Repo fails automation.</b> Automated monthly repurchase-reversal postings to the Firm General Ledger, removing ~4 hours of manual work per entity each cycle.</li>
+          </ul>
+          <div class="rec__stack"><span>Stack</span> Java · Apache Spark · Sybase ASE · Mithra ORM · Eclipse Collections · Linux</div>
+          <div class="rec__note">↳ accelerated promotion, Analyst → Associate, 2021</div>
+        </div>
+      </li>
+      <li class="rec">
+        <div class="rec__n">002</div>
+        <div>
+          <div class="rec__top"><span class="rec__role">Data Scientist / MLE</span><span class="rec__date">2019-06 → 2019-10</span></div>
+          <div class="rec__org">OYO Rooms · Conversion · Gurgaon, IN</div>
+          <ul class="rec__pts">
+            <li><b>Image scoring.</b> Built an automated image-quality model to replace manual photo review, shipped on Docker and AWS SageMaker across hotels, homes, and townhouses.</li>
+            <li><b>Learning to rank.</b> Developed XGBoost and deep-learning models to personalise hotel search ordering and lift conversion.</li>
+          </ul>
+          <div class="rec__stack"><span>Stack</span> Python · XGBoost · Deep learning · Docker · SageMaker</div>
+        </div>
+      </li>
+      <li class="rec">
+        <div class="rec__n">003</div>
+        <div>
+          <div class="rec__top"><span class="rec__role">Summer Intern</span><span class="rec__date">2018-05 → 2018-07</span></div>
+          <div class="rec__org">OYO Rooms · Conversion · Gurgaon, IN</div>
+          <ul class="rec__pts">
+            <li><b>WhatsApp chat automation.</b> Trained an NLP intent classifier on 50K+ messages (95% accuracy) to auto-resolve booking confirmations and cancellations — ₹36.7L/month GMV impact, served via Flask.</li>
+            <li><b>Delhi conversion EDA.</b> Analysed user, search, and price segments across Delhi to target funnel improvements.</li>
+          </ul>
+          <div class="rec__stack"><span>Stack</span> Python · scikit-learn · NLTK · Flask</div>
+        </div>
+      </li>
+      <li class="rec">
+        <div class="rec__n">004</div>
+        <div>
+          <div class="rec__top"><span class="rec__role">Summer Research Intern</span><span class="rec__date">2017-06 → 2017-08</span></div>
+          <div class="rec__org">IIIT-Delhi · Dr. Tanmoy Chakraborty · New Delhi, IN</div>
+          <ul class="rec__pts">
+            <li><b>EC3.</b> Proposed and implemented from scratch an ensemble method combining clustering and classification, targeting extreme class imbalance.</li>
+          </ul>
+          <div class="rec__stack"><span>Stack</span> Python · Ensemble methods · Clustering</div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- §2 BUILDS -->
+  <section class="sec" id="builds" aria-labelledby="builds-h">
+    <h2 class="sec__h" id="builds-h"><span class="no">§2</span> Selected builds <span class="line"></span></h2>
+    <div class="parts">
+      <article class="part">
+        <div class="part__id">P-01</div>
+        <div>
+          <h3 class="part__name">WhatsApp Intent Automation</h3>
+          <p class="part__desc">NLP classifier that resolves booking confirmations and cancellations from free-text replies. 50K+ messages, 95% accuracy, Flask serving.</p>
+          <dl class="part__spec">
+            <div><dt>Materials</dt><dd>Python · scikit-learn · NLTK · Flask</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://github.com/mayank953" target="_blank" rel="noopener">github.com/mayank953</a></dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="part">
+        <div class="part__id">P-02</div>
+        <div>
+          <h3 class="part__name">Image Scoring &amp; Ranking</h3>
+          <p class="part__desc">Automated image-quality scoring and learning-to-rank for hotel search, deployed on SageMaker and containerised with Docker.</p>
+          <dl class="part__spec">
+            <div><dt>Materials</dt><dd>Python · Deep learning · XGBoost · Docker · SageMaker</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://github.com/mayank953" target="_blank" rel="noopener">github.com/mayank953</a></dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="part">
+        <div class="part__id">P-03</div>
+        <div>
+          <h3 class="part__name">EC3 — Ensemble Learning</h3>
+          <p class="part__desc">Clustering-and-classification ensemble for imbalanced data, implemented from scratch during research at IIIT-Delhi.</p>
+          <dl class="part__spec">
+            <div><dt>Materials</dt><dd>Python · Ensemble methods · Clustering</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://github.com/mayank953" target="_blank" rel="noopener">github.com/mayank953</a></dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- §3 STACK -->
+  <section class="sec" id="stack" aria-labelledby="stack-h">
+    <h2 class="sec__h" id="stack-h"><span class="no">§3</span> Stack — bill of materials <span class="line"></span></h2>
+    <table class="bom">
+      <tbody>
+        <tr><th scope="row">Languages</th><td>Java · Python · C++ · C · SQL · R · MATLAB</td></tr>
+        <tr><th scope="row">Platforms</th><td>Apache Spark · Docker · AWS SageMaker · Sybase ASE · Flask · Linux / Bash · Git</td></tr>
+        <tr><th scope="row">Machine learning</th><td>TensorFlow · Keras · scikit-learn · XGBoost · NLTK · pandas · NumPy</td></tr>
+        <tr><th scope="row">Domains</th><td>Distributed data processing · ETL &amp; reconciliation · Regulatory reporting · Feature engineering · Algorithms</td></tr>
+        <tr><th scope="row">Education</th><td>B.E. (Hons), Netaji Subhash Institute of Technology, Delhi — 8.30 GPA</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- §4 CONTACT -->
+  <section class="sec" id="contact" aria-labelledby="contact-h">
+    <h2 class="sec__h" id="contact-h"><span class="no">§4</span> Contact <span class="line"></span></h2>
+    <p class="prose" style="margin-bottom:1.2rem">Open to senior engineering roles, and to a conversation about anything that has to be correct at scale.</p>
+    <dl class="contact">
+      <div><dt>E-mail</dt><span class="dots"></span><dd><a href="mailto:mayank953ai@gmail.com">mayank953ai@gmail.com</a></dd></div>
+      <div><dt>LinkedIn</dt><span class="dots"></span><dd><a href="https://linkedin.com/in/mayank953" target="_blank" rel="noopener">linkedin.com/in/mayank953</a></dd></div>
+      <div><dt>GitHub</dt><span class="dots"></span><dd><a href="https://github.com/mayank953" target="_blank" rel="noopener">github.com/mayank953</a></dd></div>
+      <div><dt>Medium</dt><span class="dots"></span><dd><a href="https://medium.com/@mayank953" target="_blank" rel="noopener">medium.com/@mayank953</a></dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer class="foot">
+  <hr class="foot__dash" />
+  <p class="foot__end">[ END OF DOCUMENT ]</p>
+  <p class="foot__meta">Typeset in IBM Plex Mono &amp; Space Mono · Prepared 2026-09 · New Delhi</p>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement, KEY = "ma-theme";
+    try {
+      var s = localStorage.getItem(KEY);
+      if (s === "light" || s === "dark") root.dataset.theme = s;
+    } catch (e) {}
+    function cur() {
+      return root.dataset.theme ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    }
+    document.getElementById("themeToggle").addEventListener("click", function () {
+      var n = cur() === "dark" ? "light" : "dark";
+      root.dataset.theme = n;
+      try { localStorage.setItem(KEY, n); } catch (e) {}
+    });
+
+    var links = Array.prototype.slice.call(document.querySelectorAll(".nav__links a"));
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute("href").slice(1)] = a; });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove("is-active"); });
+            var a = map[en.target.id];
+            if (a) a.classList.add("is-active");
+          }
+        });
+      }, { rootMargin: "-20% 0px -70% 0px" });
+      document.querySelectorAll("main section[id]").forEach(function (s) { io.observe(s); });
+    }
+  })();
+</script>
+</body>
+</html>

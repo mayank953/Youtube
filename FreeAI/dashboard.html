@@ -1,0 +1,767 @@
+<meta charset="UTF-8">
+<title>Daybook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#F3F5F3;
+    --surface:#FFFFFF;
+    --surface-2:#E7EBE8;
+    --border:#DCE2DD;
+    --ink:#1B211D;
+    --ink-soft:#5C6660;
+    --ink-faint:#8A9490;
+    --accent:#2B6355;
+    --accent-ink:#FFFFFF;
+    --accent-soft:#DCEAE4;
+    --good:#2B6355;
+    --good-soft:#DCEAE4;
+    --warn:#96631D;
+    --warn-soft:#F0E2C9;
+    --critical:#AE3A3A;
+    --critical-soft:#F4DBDB;
+    --shadow:rgba(27,33,29,0.08);
+    --focus-ring:#2B6355;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14181B;
+      --surface:#1D2321;
+      --surface-2:#242B28;
+      --border:#343C37;
+      --ink:#EDF1EE;
+      --ink-soft:#9AA69F;
+      --ink-faint:#6C7671;
+      --accent:#6FC1A6;
+      --accent-ink:#0E241D;
+      --accent-soft:#20342C;
+      --good:#6FC1A6;
+      --good-soft:#20342C;
+      --warn:#D9A657;
+      --warn-soft:#39301C;
+      --critical:#E28080;
+      --critical-soft:#3A2323;
+      --shadow:rgba(0,0,0,0.4);
+      --focus-ring:#6FC1A6;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181B;
+    --surface:#1D2321;
+    --surface-2:#242B28;
+    --border:#343C37;
+    --ink:#EDF1EE;
+    --ink-soft:#9AA69F;
+    --ink-faint:#6C7671;
+    --accent:#6FC1A6;
+    --accent-ink:#0E241D;
+    --accent-soft:#20342C;
+    --good:#6FC1A6;
+    --good-soft:#20342C;
+    --warn:#D9A657;
+    --warn-soft:#39301C;
+    --critical:#E28080;
+    --critical-soft:#3A2323;
+    --shadow:rgba(0,0,0,0.4);
+    --focus-ring:#6FC1A6;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Public Sans',ui-sans-serif,system-ui,sans-serif;
+    min-height:100vh;
+    padding:32px 20px 60px;
+  }
+  ::selection{background:var(--accent-soft);color:var(--ink);}
+  button{font-family:inherit;}
+  input, textarea, select, button{
+    font-family:inherit;
+    color:inherit;
+  }
+  :focus-visible{
+    outline:2px solid var(--focus-ring);
+    outline-offset:2px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; animation:none !important;}
+  }
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  /* ---------- Header ---------- */
+  .header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .header-left h1{
+    font-family:'Manrope',ui-sans-serif,sans-serif;
+    font-weight:800;
+    font-size:clamp(1.7rem, 1.3rem + 1.6vw, 2.35rem);
+    letter-spacing:-0.02em;
+    margin:0 0 4px;
+    text-wrap:balance;
+  }
+  .header-left .date{
+    font-size:0.95rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .header-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .stats{
+    display:flex;
+    gap:16px;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    line-height:1.15;
+  }
+  .stat b{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:1.15rem;
+    font-weight:500;
+  }
+  .stat span{
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--ink-faint);
+  }
+  .theme-toggle{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .theme-toggle:hover{border-color:var(--accent);}
+  .theme-toggle:active{transform:scale(0.94);}
+  .theme-toggle svg{width:18px;height:18px;stroke:var(--ink-soft);}
+
+  /* ---------- Board ---------- */
+  .board{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+    align-items:start;
+  }
+  @media (max-width:940px){
+    .board{grid-template-columns:1fr;}
+  }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 1px 2px var(--shadow);
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+  .panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:16px 18px 14px;
+    border-bottom:1px solid var(--border);
+  }
+  .panel-head h2{
+    font-family:'Manrope',ui-sans-serif,sans-serif;
+    font-size:1.02rem;
+    font-weight:700;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .count-chip{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:0.72rem;
+    font-variant-numeric:tabular-nums;
+    background:var(--surface-2);
+    color:var(--ink-soft);
+    border-radius:999px;
+    padding:2px 9px;
+    min-width:20px;
+    text-align:center;
+  }
+
+  .panel-form{
+    display:flex;
+    gap:8px;
+    padding:14px 18px;
+    border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .panel-form input[type="text"]{
+    flex:1 1 140px;
+    min-width:0;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:8px 10px;
+    font-size:0.88rem;
+    color:var(--ink);
+  }
+  .panel-form input[type="text"]::placeholder{color:var(--ink-faint);}
+  .priority-group{
+    display:flex;
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    flex:0 0 auto;
+  }
+  .priority-group button{
+    border:none;
+    background:var(--surface);
+    color:var(--ink-soft);
+    font-size:0.72rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+    padding:8px 9px;
+    cursor:pointer;
+    border-left:1px solid var(--border);
+    transition:background .12s ease, color .12s ease;
+  }
+  .priority-group button:first-child{border-left:none;}
+  .priority-group button[aria-pressed="true"][data-p="low"]{background:var(--surface-2);color:var(--ink);}
+  .priority-group button[aria-pressed="true"][data-p="med"]{background:var(--warn-soft);color:var(--warn);}
+  .priority-group button[aria-pressed="true"][data-p="high"]{background:var(--critical-soft);color:var(--critical);}
+
+  .add-btn{
+    flex:0 0 auto;
+    background:var(--accent);
+    color:var(--accent-ink);
+    border:none;
+    border-radius:8px;
+    padding:8px 14px;
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:filter .12s ease, transform .1s ease;
+  }
+  .add-btn:hover{filter:brightness(1.06);}
+  .add-btn:active{transform:scale(0.97);}
+
+  .panel-body{
+    padding:8px 10px 14px;
+    max-height:420px;
+    overflow-y:auto;
+  }
+
+  .empty{
+    margin:18px 10px;
+    padding:22px 14px;
+    border:1.5px dashed var(--border);
+    border-radius:10px;
+    text-align:center;
+    color:var(--ink-faint);
+    font-size:0.85rem;
+  }
+
+  /* ---------- To-dos ---------- */
+  .todo-row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:9px 8px;
+    border-radius:8px;
+    transition:background .12s ease;
+  }
+  .todo-row:hover{background:var(--surface-2);}
+  .todo-row .check{
+    width:18px;
+    height:18px;
+    border-radius:6px;
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    flex:0 0 auto;
+    margin-top:1px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .todo-row .check svg{width:12px;height:12px;opacity:0;stroke:var(--accent-ink);}
+  .todo-row.done .check{background:var(--accent);border-color:var(--accent);}
+  .todo-row.done .check svg{opacity:1;}
+  .todo-row .text{
+    flex:1;
+    min-width:0;
+    font-size:0.9rem;
+    line-height:1.35;
+    word-break:break-word;
+    cursor:pointer;
+  }
+  .todo-row.done .text{color:var(--ink-faint);text-decoration:line-through;}
+  .prio-dot{
+    width:7px;height:7px;border-radius:50%;
+    flex:0 0 auto;margin-top:6px;
+  }
+  .prio-dot.low{background:var(--ink-faint);}
+  .prio-dot.med{background:var(--warn);}
+  .prio-dot.high{background:var(--critical);}
+  .row-del{
+    opacity:0;
+    background:none;border:none;color:var(--ink-faint);
+    cursor:pointer;font-size:1rem;line-height:1;padding:2px 4px;
+    transition:opacity .12s ease, color .12s ease;
+  }
+  .todo-row:hover .row-del, .team-item:hover .row-del, .note-item:hover .row-del{opacity:1;}
+  .row-del:hover{color:var(--critical);}
+
+  .section-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:10px 8px 2px;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.07em;
+    color:var(--ink-faint);
+  }
+  .clear-link{
+    margin-left:auto;
+    background:none;border:none;
+    color:var(--ink-faint);
+    font-size:0.7rem;
+    text-transform:none;
+    letter-spacing:0;
+    cursor:pointer;
+    text-decoration:underline;
+    text-underline-offset:2px;
+  }
+  .clear-link:hover{color:var(--critical);}
+
+  /* ---------- Team ---------- */
+  .team-group{margin:6px 4px 4px;}
+  .team-group + .team-group{margin-top:4px;}
+  .team-member{
+    font-family:'Manrope',ui-sans-serif,sans-serif;
+    font-weight:700;
+    font-size:0.8rem;
+    padding:8px 8px 4px;
+    color:var(--ink-soft);
+  }
+  .team-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 8px;
+    border-radius:8px;
+    transition:background .12s ease;
+  }
+  .team-item:hover{background:var(--surface-2);}
+  .team-item .text{
+    flex:1;min-width:0;
+    font-size:0.88rem;
+    line-height:1.35;
+    word-break:break-word;
+  }
+  .status-pill{
+    flex:0 0 auto;
+    border:none;
+    border-radius:999px;
+    font-size:0.68rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+    padding:4px 10px;
+    cursor:pointer;
+    transition:filter .12s ease;
+  }
+  .status-pill:hover{filter:brightness(0.96);}
+  .status-pill[data-status="todo"]{background:var(--surface-2);color:var(--ink-soft);}
+  .status-pill[data-status="progress"]{background:var(--warn-soft);color:var(--warn);}
+  .status-pill[data-status="done"]{background:var(--good-soft);color:var(--good);}
+  .team-item.status-done .text{color:var(--ink-faint);text-decoration:line-through;}
+
+  .team-form-row2{
+    display:flex;
+    gap:8px;
+    width:100%;
+    margin-top:8px;
+  }
+  #teamMemberInput{
+    /* teamForm is column-direction, so the generic row flex-basis would
+       stretch this field's height instead of its width — pin it. */
+    flex:0 0 auto;
+    width:100%;
+  }
+
+  /* ---------- Notes ---------- */
+  .note-item{
+    padding:10px 8px;
+    border-radius:8px;
+    transition:background .12s ease;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .note-item:hover{background:var(--surface-2);}
+  .note-item .text{
+    flex:1;min-width:0;
+    font-size:0.88rem;
+    line-height:1.45;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .note-time{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:0.68rem;
+    color:var(--ink-faint);
+    display:block;
+    margin-top:4px;
+    font-variant-numeric:tabular-nums;
+  }
+
+  footer{
+    max-width:1180px;
+    margin:34px auto 0;
+    text-align:center;
+    font-size:0.75rem;
+    color:var(--ink-faint);
+  }
+</style>
+
+<div class="wrap">
+  <header class="header">
+    <div class="header-left">
+      <h1 id="greeting">Good morning</h1>
+      <p class="date" id="dateLine"></p>
+    </div>
+    <div class="header-right">
+      <div class="stats">
+        <div class="stat"><b id="statTodos">0/0</b><span>tasks</span></div>
+        <div class="stat"><b id="statTeam">0</b><span>team open</span></div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme" title="Toggle color theme"></button>
+    </div>
+  </header>
+
+  <main class="board">
+    <!-- To-dos -->
+    <section class="panel" aria-labelledby="todoHeading">
+      <div class="panel-head">
+        <h2 id="todoHeading">My To‑dos</h2>
+        <span class="count-chip" id="todoCount">0</span>
+      </div>
+      <form class="panel-form" id="todoForm">
+        <input type="text" id="todoInput" placeholder="Add a task…" maxlength="200" autocomplete="off">
+        <div class="priority-group" role="group" aria-label="Priority">
+          <button type="button" data-p="low" aria-pressed="true">Low</button>
+          <button type="button" data-p="med" aria-pressed="false">Med</button>
+          <button type="button" data-p="high" aria-pressed="false">High</button>
+        </div>
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+      <div class="panel-body" id="todoBody"></div>
+    </section>
+
+    <!-- Team work -->
+    <section class="panel" aria-labelledby="teamHeading">
+      <div class="panel-head">
+        <h2 id="teamHeading">Team Work</h2>
+        <span class="count-chip" id="teamCount">0</span>
+      </div>
+      <form class="panel-form" id="teamForm" style="flex-direction:column;align-items:stretch;">
+        <input type="text" id="teamMemberInput" placeholder="Teammate name…" maxlength="60" autocomplete="off">
+        <div class="team-form-row2">
+          <input type="text" id="teamTaskInput" placeholder="What should they work on…" maxlength="200" autocomplete="off">
+          <button type="submit" class="add-btn">Assign</button>
+        </div>
+      </form>
+      <div class="panel-body" id="teamBody"></div>
+    </section>
+
+    <!-- Notes -->
+    <section class="panel" aria-labelledby="notesHeading">
+      <div class="panel-head">
+        <h2 id="notesHeading">Notes</h2>
+        <span class="count-chip" id="notesCount">0</span>
+      </div>
+      <form class="panel-form" id="notesForm">
+        <input type="text" id="notesInput" placeholder="Jot something down…" maxlength="500" autocomplete="off">
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+      <div class="panel-body" id="notesBody"></div>
+    </section>
+  </main>
+
+  <footer>Saved in this browser only — nothing here is shared or synced elsewhere.</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- storage helpers ---------- */
+  function load(key, fallback){
+    try{
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : fallback;
+    }catch(e){ return fallback; }
+  }
+  function save(key, value){
+    try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){}
+  }
+  function uid(){
+    return (crypto && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+  }
+
+  const KEYS = { todos:'pdash_todos', team:'pdash_team', notes:'pdash_notes', theme:'pdash_theme' };
+
+  let todos = load(KEYS.todos, []);
+  let team  = load(KEYS.team, []);
+  let notes = load(KEYS.notes, []);
+
+  /* ---------- theme ---------- */
+  const themeBtn = document.getElementById('themeToggle');
+  const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>';
+
+  function systemTheme(){
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function effectiveTheme(){
+    return localStorage.getItem(KEYS.theme) || systemTheme();
+  }
+  function applyTheme(){
+    const stored = localStorage.getItem(KEYS.theme);
+    if(stored){ document.documentElement.setAttribute('data-theme', stored); }
+    else{ document.documentElement.removeAttribute('data-theme'); }
+    const eff = effectiveTheme();
+    themeBtn.innerHTML = eff === 'dark' ? SUN : MOON;
+    themeBtn.setAttribute('aria-label', eff === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  themeBtn.addEventListener('click', function(){
+    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(KEYS.theme, next);
+    applyTheme();
+  });
+  if(window.matchMedia){
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+      if(!localStorage.getItem(KEYS.theme)) applyTheme();
+    });
+  }
+  applyTheme();
+
+  /* ---------- header: greeting + date ---------- */
+  const now = new Date();
+  const hour = now.getHours();
+  document.getElementById('greeting').textContent =
+    hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('dateLine').textContent =
+    now.toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric' });
+
+  /* ---------- To-dos ---------- */
+  const todoForm = document.getElementById('todoForm');
+  const todoInput = document.getElementById('todoInput');
+  const todoBody = document.getElementById('todoBody');
+  const priorityGroup = todoForm.querySelector('.priority-group');
+  let currentPriority = 'low';
+
+  priorityGroup.addEventListener('click', function(e){
+    const btn = e.target.closest('button[data-p]');
+    if(!btn) return;
+    currentPriority = btn.dataset.p;
+    priorityGroup.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+  });
+
+  function prioRank(p){ return p === 'high' ? 0 : p === 'med' ? 1 : 2; }
+
+  function renderTodos(){
+    save(KEYS.todos, todos);
+    const open = todos.filter(t => !t.done).sort((a,b) => prioRank(a.priority) - prioRank(b.priority) || a.createdAt - b.createdAt);
+    const done = todos.filter(t => t.done).sort((a,b) => b.createdAt - a.createdAt);
+
+    document.getElementById('todoCount').textContent = open.length;
+    document.getElementById('statTodos').textContent = done.length + '/' + todos.length;
+
+    todoBody.innerHTML = '';
+    if(todos.length === 0){
+      todoBody.innerHTML = '<div class="empty">Nothing on the list yet. Add your first task above.</div>';
+      return;
+    }
+    if(open.length === 0){
+      todoBody.innerHTML = '<div class="empty">All caught up. Nice work.</div>';
+    }
+    open.forEach(t => todoBody.appendChild(todoRow(t)));
+
+    if(done.length){
+      const label = document.createElement('div');
+      label.className = 'section-label';
+      label.innerHTML = '<span>Completed · ' + done.length + '</span><button class="clear-link" type="button" id="clearDone">Clear</button>';
+      todoBody.appendChild(label);
+      done.forEach(t => todoBody.appendChild(todoRow(t)));
+      document.getElementById('clearDone').addEventListener('click', function(){
+        todos = todos.filter(t => !t.done);
+        renderTodos();
+      });
+    }
+  }
+
+  function todoRow(t){
+    const row = document.createElement('div');
+    row.className = 'todo-row' + (t.done ? ' done' : '');
+    row.innerHTML =
+      '<button class="check" aria-label="Mark ' + (t.done ? 'not done' : 'done') + '"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></button>' +
+      (t.done ? '' : '<span class="prio-dot ' + t.priority + '"></span>') +
+      '<span class="text">' + escapeHtml(t.text) + '</span>' +
+      '<button class="row-del" aria-label="Delete task">×</button>';
+    row.querySelector('.check').addEventListener('click', function(){
+      t.done = !t.done;
+      renderTodos();
+    });
+    row.querySelector('.text').addEventListener('click', function(){
+      t.done = !t.done;
+      renderTodos();
+    });
+    row.querySelector('.row-del').addEventListener('click', function(){
+      todos = todos.filter(x => x.id !== t.id);
+      renderTodos();
+    });
+    return row;
+  }
+
+  todoForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const text = todoInput.value.trim();
+    if(!text) return;
+    todos.push({ id: uid(), text, done:false, priority: currentPriority, createdAt: Date.now() });
+    todoInput.value = '';
+    renderTodos();
+  });
+
+  /* ---------- Team work ---------- */
+  const teamForm = document.getElementById('teamForm');
+  const teamMemberInput = document.getElementById('teamMemberInput');
+  const teamTaskInput = document.getElementById('teamTaskInput');
+  const teamBody = document.getElementById('teamBody');
+  const STATUS_ORDER = ['todo','progress','done'];
+  const STATUS_LABEL = { todo:'To do', progress:'In progress', done:'Done' };
+
+  function renderTeam(){
+    save(KEYS.team, team);
+    const open = team.filter(t => t.status !== 'done').length;
+    document.getElementById('teamCount').textContent = team.length;
+    document.getElementById('statTeam').textContent = open;
+
+    teamBody.innerHTML = '';
+    if(team.length === 0){
+      teamBody.innerHTML = '<div class="empty">No assignments yet. Add a teammate and a task above.</div>';
+      return;
+    }
+    const members = [...new Set(team.map(t => t.member))];
+    members.forEach(m => {
+      const group = document.createElement('div');
+      group.className = 'team-group';
+      const heading = document.createElement('div');
+      heading.className = 'team-member';
+      heading.textContent = m;
+      group.appendChild(heading);
+      team.filter(t => t.member === m).forEach(t => group.appendChild(teamRow(t)));
+      teamBody.appendChild(group);
+    });
+  }
+
+  function teamRow(t){
+    const row = document.createElement('div');
+    row.className = 'team-item' + (t.status === 'done' ? ' status-done' : '');
+    row.innerHTML =
+      '<span class="text">' + escapeHtml(t.task) + '</span>' +
+      '<button class="status-pill" data-status="' + t.status + '">' + STATUS_LABEL[t.status] + '</button>' +
+      '<button class="row-del" aria-label="Delete assignment">×</button>';
+    row.querySelector('.status-pill').addEventListener('click', function(){
+      const idx = STATUS_ORDER.indexOf(t.status);
+      t.status = STATUS_ORDER[(idx + 1) % STATUS_ORDER.length];
+      renderTeam();
+    });
+    row.querySelector('.row-del').addEventListener('click', function(){
+      team = team.filter(x => x.id !== t.id);
+      renderTeam();
+    });
+    return row;
+  }
+
+  teamForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const member = teamMemberInput.value.trim();
+    const task = teamTaskInput.value.trim();
+    if(!member || !task) return;
+    team.push({ id: uid(), member, task, status:'todo', createdAt: Date.now() });
+    teamTaskInput.value = '';
+    renderTeam();
+  });
+
+  /* ---------- Notes ---------- */
+  const notesForm = document.getElementById('notesForm');
+  const notesInput = document.getElementById('notesInput');
+  const notesBody = document.getElementById('notesBody');
+
+  function renderNotes(){
+    save(KEYS.notes, notes);
+    document.getElementById('notesCount').textContent = notes.length;
+    notesBody.innerHTML = '';
+    if(notes.length === 0){
+      notesBody.innerHTML = '<div class="empty">No notes yet. Capture something worth remembering.</div>';
+      return;
+    }
+    [...notes].sort((a,b) => b.createdAt - a.createdAt).forEach(n => notesBody.appendChild(noteRow(n)));
+  }
+
+  function noteRow(n){
+    const row = document.createElement('div');
+    row.className = 'note-item';
+    const time = new Date(n.createdAt).toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
+    row.innerHTML =
+      '<div class="text">' + escapeHtml(n.text) + '<span class="note-time">' + time + '</span></div>' +
+      '<button class="row-del" aria-label="Delete note">×</button>';
+    row.querySelector('.row-del').addEventListener('click', function(){
+      notes = notes.filter(x => x.id !== n.id);
+      renderNotes();
+    });
+    return row;
+  }
+
+  notesForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const text = notesInput.value.trim();
+    if(!text) return;
+    notes.push({ id: uid(), text, createdAt: Date.now() });
+    notesInput.value = '';
+    renderNotes();
+  });
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  renderTodos();
+  renderTeam();
+  renderNotes();
+})();
+</script>

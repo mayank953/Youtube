@@ -1,0 +1,18 @@
+{
+  "env": {
+    "ANTHROPIC_API_KEY": "sk-3564c2b83aed88ae-1216cb-af6ec7b6",
+    "ANTHROPIC_BASE_URL": "http://localhost:20128/v1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "my-combo",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "nvidia/nvidia/nemotron-3-super-120b-a12b",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "antigravity/gemini-3.6-flash-high"
+  },
+  "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/statusline.js"
+  },
+  "effortLevel": "low",
+  "theme": "dark",
+  "switchModelsOnFlag": false
+}
